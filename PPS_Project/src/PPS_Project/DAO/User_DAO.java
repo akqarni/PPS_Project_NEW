@@ -28,7 +28,7 @@ public class User_DAO {
 	private static final String DELETE_USERS_SQL  = "delete from users where email = ?;";
 	private static final String DELETE_ALL_USERS_SQL  = "delete * from users;";
 	private static final String UPDATE_USER_DOLLAR_BALANCE_SQL  = "update users set dollar_balance = ? where email = ?;";
-	private static final String UPDATE_USER_PPS_BALANCE_BY_ID = "update users set PPS_balance=? where email=?";
+	private static final String UPDATE_USER_PPS_BALANCE_BY_ID = "update users set PPS_balance = ? where email = ?";
 	private static final String VALIDATE_USER_SQL = "select fname, lName, address, dob, PPS_balance, dollar_balance from users where email = ? and pass = ?";
 	
 	
@@ -69,7 +69,7 @@ public class User_DAO {
 		preparedStatement.setString(4, user.getUser_lname());
 		preparedStatement.setString(5, user.getUser_address());
 		preparedStatement.setString(6, user.getUser_dob());
-		preparedStatement.setDouble(7, user.getPPS_balance());
+		preparedStatement.setLong(7, user.getPPS_balance());
 		preparedStatement.setDouble(8, user.getDollar_balance());
 		System.out.println(preparedStatement);
 		
@@ -102,7 +102,7 @@ public class User_DAO {
 			String lname = rs.getString("lname");
 			String address = rs.getString("address");
 			String dob = rs.getString("dob");
-			int PPS_balance = rs.getInt("PPS_balance");
+			long PPS_balance = rs.getLong("PPS_balance");
 			double dollar_balance = rs.getDouble("dollar_balance");
 			System.out.println("email: "+ email+ "password: "+ password);
 			
@@ -138,7 +138,7 @@ public class User_DAO {
 			String lname = rs.getString("lname");
 			String address = rs.getString("address");
 			String dob = rs.getString("dob");
-			int PPS_balance = rs.getInt("PPS_balance");
+			long PPS_balance = rs.getLong("PPS_balance");
 			double dollar_balance = rs.getDouble("dollar_balance");
 			System.out.println("email: "+ user_email+ "password: "+ user_password);
 			
@@ -207,7 +207,7 @@ public class User_DAO {
     	//double newBalance = user.getDollar_balance() + dollar_amount;
     	// Step 2: Create a statement using connection object
         preparedStatement = (PreparedStatement) connect.prepareStatement(UPDATE_USER_PPS_BALANCE_BY_ID);
-        preparedStatement.setDouble(1, user.getPPS_balance());
+        preparedStatement.setLong(1, user.getPPS_balance());
         preparedStatement.setString(2, user.getUser_email());
         System.out.println(preparedStatement);
          

@@ -47,26 +47,27 @@
 		</nav>
 	</header>
 
-<br><br><br><br><br><br><br><br><br>
+
 
 <div class="container col-md-5">
 
 <a href="log-out" class="btn" style ="float:right">Logout</a>
 	
 	<h3 class="container col-md-5" style="float:center"> Hello <%=userName%>! </h3>
-	
+	<br><br><br><br><br><br><br><br><br>
 		<div class="card">
 			<div class="card-body">
 			
 			<h5 style="align: center; color:red"><%=((errorMessage == null) || (errorMessage.trim().equals(""))) ? "" : (errorMessage)%></h5>
 			<h5 style="align: center; color:green"><%=((message == null) || (message.trim().equals(""))) ? "" : (message)%></h5>
 				
-			   <form action="initialize" method="post">
+			    <form action="initialize" method="post">
 
 				<button type="submit" class="btn btn-success"> Initialize Database </button>
-				
+				<a href="root-allProjectInfo.jsp" class="btn btn-success"> PPS Project Updates </a>
 				</form>
 			</div>
+			
 		</div>
 	</div>
 

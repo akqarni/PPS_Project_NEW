@@ -11,10 +11,29 @@ public class Transactions {
 	private int PPS_amount;
 	private String transaction_from_email;
 	private String transaction_to_email;
+	private double PPS_price;
 	
 	
 	public Transactions() {}
 	
+	
+	
+	public Transactions(String transaction_name, String transaction_date, String transaction_time,
+			double dollar_amount, int pPS_amount, String transaction_from_email, String transaction_to_email,
+			double pPS_price) {
+		super();
+		this.transaction_name = transaction_name;
+		this.transaction_date = transaction_date;
+		this.transaction_time = transaction_time;
+		this.dollar_amount = dollar_amount;
+		this.PPS_amount = pPS_amount;
+		this.transaction_from_email = transaction_from_email;
+		this.transaction_to_email = transaction_to_email;
+		this.PPS_price = pPS_price;
+	}
+
+
+
 	public Transactions(int transaction_ID, String transaction_name, String transaction_date, String transaction_time,
 			double dollar_amount, int pPS_amount, String transaction_from_email, String transaction_to_email) {
 		super();
@@ -115,6 +134,20 @@ public class Transactions {
 	public void setTransaction_to_email(String transaction_to_email) {
 		this.transaction_to_email = transaction_to_email;
 	}
+
+
+
+	public double getPPS_price() {
+		return PPS_price;
+	}
+
+
+
+	public void setPPS_price(double pPS_price) {
+		PPS_price = pPS_price;
+	}
+	
+	
 	
 	
 	

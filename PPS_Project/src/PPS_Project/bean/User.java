@@ -1,5 +1,6 @@
 package PPS_Project.bean;
 
+
 public class User {
 
 	private String user_email;
@@ -8,7 +9,7 @@ public class User {
 	private String user_lname;
 	private String user_address;
 	private String user_dob;
-	private int PPS_balance;
+	private long PPS_balance;
 	private double dollar_balance;
 
 	public User(String user_fname, String user_lname, String user_address, String user_dob) {
@@ -34,7 +35,7 @@ public class User {
 	
 	
 	public User(String user_email, String user_password, String user_fname, String user_lname, String user_address,
-			String user_dob, int pPS_balance, double dollar_balance) {
+			String user_dob, long pPS_balance, double dollar_balance) {
 		super();
 		this.user_email = user_email;
 		this.user_password = user_password;
@@ -95,11 +96,11 @@ public class User {
 		this.user_dob = user_dob;
 	}
 
-	public int getPPS_balance() {
+	public long getPPS_balance() {
 		return PPS_balance;
 	}
 
-	public void setPPS_balance(int pPS_balance) {
+	public void setPPS_balance(long pPS_balance) {
 		PPS_balance = pPS_balance;
 	}
 

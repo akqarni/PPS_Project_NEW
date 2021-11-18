@@ -119,6 +119,7 @@ public class DepositWithdraw_Servlet extends HttpServlet {
 			newDepositTransaction.setTransaction_name("DEPOSIT");
 			newDepositTransaction.setTransaction_from_email(user.getUser_email());
 			newDepositTransaction.setTransaction_to_email(user.getUser_email());
+			newDepositTransaction.setPPS_price(0);
 			
 			boolean isInserted = transactionDAO.insertTransaction(newDepositTransaction);
 			
@@ -157,25 +158,27 @@ public class DepositWithdraw_Servlet extends HttpServlet {
 			return;
 		}
 		
-		double dollarAmount = Double.parseDouble(request.getParameter("dollar-amount-withdraw"));
+		
 		try {
+			double dollarAmount = Double.parseDouble(request.getParameter("dollar-amount-withdraw"));
 			user = userDAO.selectUser(user.getUser_email());
 			if (user.getDollar_balance() > dollarAmount) {
 				user.setDollar_balance(user.getDollar_balance() - dollarAmount); 
 				boolean isDollarUpdated = userDAO.updateUserDollarBalance(user);
 				
 				// Insert deposit transaction to transactions table
-				Transactions newDepositTransaction = new Transactions();
+				Transactions newWithdrawTransaction = new Transactions();
 				//long millis = System.currentTimeMillis(); 
-				newDepositTransaction.setTransaction_date(LocalDate.now().toString());
-				newDepositTransaction.setTransaction_time(LocalTime.now().toString());
-				newDepositTransaction.setDollar_amount(dollarAmount);
-				newDepositTransaction.setPPS_amount(0);
-				newDepositTransaction.setTransaction_name("WITHDRAW");
-				newDepositTransaction.setTransaction_from_email(user.getUser_email());
-				newDepositTransaction.setTransaction_to_email(user.getUser_email());
+				newWithdrawTransaction.setTransaction_date(LocalDate.now().toString());
+				newWithdrawTransaction.setTransaction_time(LocalTime.now().toString());
+				newWithdrawTransaction.setDollar_amount(dollarAmount);
+				newWithdrawTransaction.setPPS_amount(0);
+				newWithdrawTransaction.setTransaction_name("WITHDRAW");
+				newWithdrawTransaction.setTransaction_from_email(user.getUser_email());
+				newWithdrawTransaction.setTransaction_to_email(user.getUser_email());
+				newWithdrawTransaction.setPPS_price(0);
 				
-				boolean isInserted = transactionDAO.insertTransaction(newDepositTransaction);
+				boolean isInserted = transactionDAO.insertTransaction(newWithdrawTransaction);
 				
 				//System.out.println("isDollarUpdated: "+ isDollarUpdated);
 				System.out.println("isTransactionInserted: "+ isInserted);
@@ -188,8 +191,7 @@ public class DepositWithdraw_Servlet extends HttpServlet {
 				return;
 			}
 			
-			
-			
+		
 			
 		} catch (Exception e) {
 			System.out.println(e);

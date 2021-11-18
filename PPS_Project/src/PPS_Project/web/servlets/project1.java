@@ -70,33 +70,41 @@ public class project1 {
     	statement = connect.createStatement();
     	
     	// Create all the tables statements
-    	String createUsersTable_SQL =" CREATE TABLE IF NOT EXISTS `users` (\r\n"
-		  		+ "  `email` varchar(50) NOT NULL,\r\n"
-		  		+ "  `pass` varchar(50) DEFAULT NULL,\r\n"
-		  		+ "  `fname` varchar(30) DEFAULT NULL,\r\n"
-		  		+ "  `lname` varchar(50) DEFAULT NULL,\r\n"
-		  		+ "  `address` varchar(100) DEFAULT NULL,\r\n"
-		  		+ "  `dob` date DEFAULT NULL,\r\n"
-		  		+ "  `PPS_balance` double DEFAULT NULL,\r\n"
-		  		+ "  `dollar_balance` double DEFAULT NULL,\r\n"
-		  		+ "  PRIMARY KEY (`email`))";
+    	String createUsersTable_SQL = "CREATE TABLE IF NOT EXISTS users (\r\n"
+    			+ "    email varchar(50),\r\n"
+    			+ "    pass varchar(50),\r\n"
+    			+ "    fname varchar(50),\r\n"
+    			+ "    lname varchar(50),\r\n"
+    			+ "    address varchar(100),\r\n"
+    			+ "    dob date,\r\n"
+    			+ "    PPS_balance long,\r\n"
+    			+ "    dollar_balance DOUBLE,\r\n"
+    			+ "    primary key (email)\r\n"
+    			+ ")";
     	
     	
-    	String createFollowTable_SQL = "CREATE TABLE IF NOT EXISTS follows " +
-                "(follower_email  VARCHAR(50), " + 
-                " following_email VARCHAR(50), " + 
-                " PRIMARY KEY (follower_email,following_email))";
+    	String createFollowTable_SQL = "CREATE TABLE IF NOT EXISTS follows (\r\n"
+    			+ "    follower_email varchar(50),\r\n"
+    			+ "    following_email varchar(50),\r\n"
+    			+ "    primary key (follower_email, following_email),\r\n"
+    			+ "    foreign key (follower_email) references users(email),\r\n"
+    			+ "    foreign key (following_email) references users(email)\r\n"
+    			+ ");";
     	
-    	String createTransactionsTable_SQL ="CREATE TABLE IF NOT EXISTS transactions " +
-                "(transaction_ID integer AUTO_INCREMENT, " +
-                " transaction_name VARCHAR(20), " + 
-                " transaction_date date, " + 
-                " transaction_time time, " + 
-                " dollar_amount double, " + 
-                " PPS_amount integer, " + 
-                " transaction_from_email varchar (20) not null, " + 
-                " transaction_to_email varchar (20) not null, " + 
-                "  PRIMARY KEY ( transaction_ID ))" ;
+    	String createTransactionsTable_SQL = "CREATE TABLE IF NOT EXISTS transactions (\r\n"
+    			+ "    transaction_ID Integer auto_increment,\r\n"
+    			+ "    transaction_name varchar(20),\r\n"
+    			+ "    transaction_date date,\r\n"
+    			+ "    transaction_time time,\r\n"
+    			+ "    dollar_amount Double,\r\n"
+    			+ "    PPS_amount int,\r\n"
+    			+ "    transaction_from_email varchar(50) not null,\r\n"
+    			+ "    transaction_to_email varchar(50) not null,\r\n"
+    			+ "    PPS_Price double,\r\n"
+    			+ "    primary key (transaction_ID),\r\n"
+    			+ "    foreign key (transaction_from_email) references users(email),\r\n"
+    			+ "    foreign key (transaction_to_email) references users (email)\r\n"
+    			+ ")";
     	
     	String createPPS_priceTable_SQL ="CREATE TABLE IF NOT EXISTS PPS_price " +
                 "(price double)" ;
@@ -110,16 +118,16 @@ public class project1 {
     	
     	// Intialize all tables
     	String intializeUserTable = "insert into users (email,pass,fname,lname,address,dob,PPS_balance,dollar_balance) values"
-    			+ "('jbjb@yahoo.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('effat@gmail.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('jbxsjb@gmail.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('gdfgd@gmail.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('rofdgfgot@gmail.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('bit@gmail.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('tre@gmail.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('rgt@gmail.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('roofwert@gmail.com','1234','try','effat','ctg','2012-11-12',12345,1345.66),"
-    			+ "('asfegtt@gmail.com','1234','dd','effat','ctg','2012-01-12',12345,1345.66);";
+    			+ "('jbjb@yahoo.com','1234','Sahr','Ahmed','ctg','2012-11-12',0,0),"
+    			+ "('effat@gmail.com','1234','Effat','Fazel','ctg','2012-11-12',0,0),"
+    			+ "('jbxsjb@gmail.com','1234','Reem','','Alqarni','2012-11-12',0,0),"
+    			+ "('gdfgd@gmail.com','1234','Rami','Saad','ctg','2012-11-12',0,0),"
+    			+ "('rofdgfgot@gmail.com','1234','Saad','AlAli','ctg','2012-11-12',0,0),"
+    			+ "('bit@gmail.com','1234','Afnan','Alqarni','ctg','2012-11-12',0,0),"
+    			+ "('tre@gmail.com','1234','Sara','Alix','ctg','2012-11-12',0,0),"
+    			+ "('ret@gmail.com','1234','Ali','Alzh','ctg','2012-11-12',0,0),"
+    			+ "('roofwert@gmail.com','1234','Ahmed','Oufi','ctg','2012-11-12',0,0),"
+    			+ "('ef@gmail.com','1234','Roaa','Ali','ctg','2012-01-12',0,0);";
     	
     	String intializeFollowTable = "insert into follows(follower_email,following_email) values"
     			+ "('ef@gmail.com','ret@gmail.com'), "
@@ -134,7 +142,7 @@ public class project1 {
     			+ "('pooef@gmail.com','pomnret@gmail.com') ;";
     	
     	String intializeTransactionsTable = "INSERT INTO transactions (transaction_name,transaction_date,transaction_time,dollar_amount,PPS_amount,transaction_from_email,transaction_to_email) VALUES "
-    			+ "('effat',  '2018-11-12','13:30',1200,1234,'ef@gmail.com','ret@gmail.com')"
+    			+ "('effat',  '2018-11-12','13:30',1200,1234,'gdfgd@gmail.com','ret@gmail.com')"
     			+ ",('dnn',  '2018-11-12','13:30',1200,1234,'ef@gmail.com','ret@gmail.com')"
     			+ ",('uiopeffat',  '2018-11-12','13:30',1200,1234,'ef@gmail.com','ret@gmail.com')"
     			+ ",('eerteffat',  '2018-11-12','13:30',1200,1234,'ef@gmail.com','ret@gmail.com')"
@@ -145,7 +153,7 @@ public class project1 {
     			+ ",('effat',  '2018-11-12','13:30',1200,1234,'ef@gmail.com','ret@gmail.com')"
     			+ ",('ijijeffat',  '2018-11-12','13:30',1200,1234,'ef@gmail.com','ret@gmail.com')";
     	
-    	String intializePPS_priceTable = "insert into PPS_price (price) values (1000000);";
+    	String intializePPS_priceTable = "insert into PPS_price (price) values (0.000001);";
     	
     
     	// Execute all drop statements
@@ -162,8 +170,8 @@ public class project1 {
         
         // Execute all intialization statements
         statement.executeUpdate(intializeUserTable);
-      	statement.executeUpdate(intializeFollowTable);
-      	statement.executeUpdate(intializeTransactionsTable);
+      	//statement.executeUpdate(intializeFollowTable);
+      	//statement.executeUpdate(intializeTransactionsTable);
       	statement.executeUpdate(intializePPS_priceTable);
     
 

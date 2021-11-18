@@ -1,4 +1,4 @@
-<%@ page import= "PPS_Project.bean.*, PPS_Project.DAO.*, java.util.List, javax.servlet.http.HttpSession " %>
+<%@ page import= "PPS_Project.bean.*, PPS_Project.DAO.*, java.util.List, javax.servlet.http.HttpSession , java.text.DecimalFormat " %>
  
  <%@ page isELIgnored="false"%>
 
@@ -33,7 +33,9 @@ String userName = user.getUser_fname() + " " + user.getUser_lname();
 User_DAO userDAO = new User_DAO();
 
 double dollarBalance = userDAO.selectUser(user.getUser_email()).getDollar_balance();
-int PPS_Balance = userDAO.selectUser(user.getUser_email()).getPPS_balance();
+long PPS_Balance = userDAO.selectUser(user.getUser_email()).getPPS_balance();
+
+DecimalFormat df = new DecimalFormat("#.##");
 
 %>
     
@@ -80,7 +82,7 @@ int PPS_Balance = userDAO.selectUser(user.getUser_email()).getPPS_balance();
 			<h5 style="align: center; color:red"><%=((errorMessage == null) || (errorMessage.trim().equals(""))) ? "" : (errorMessage)%></h5>
 			<h5 style="align: center; color:green"><%=((message == null) || (message.trim().equals(""))) ? "" : (message)%></h5>
 				
-			<h5> Your Dollar balance is: <%=(dollarBalance)%> </h5>	
+			<h5> Your Dollar balance is: <%=(df.format(dollarBalance))%> </h5>	
 			<br>
 			<h5> Your PPS balance is: <%=(PPS_Balance)%> </h5>	
 			

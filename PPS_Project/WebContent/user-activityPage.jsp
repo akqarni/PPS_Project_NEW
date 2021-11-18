@@ -81,6 +81,7 @@ List <Transactions> transactions_list = Transactions.getAllTransactionsOfUser(us
                 <th>PPS amount</th>
                 <th>From</th>
                 <th>To</th>
+                <th>PPS Price</th>
             </tr>
             
             <!-- 
@@ -109,6 +110,7 @@ List <Transactions> transactions_list = Transactions.getAllTransactionsOfUser(us
 				   <td>  <%=transaction.getPPS_amount()%>                 </td>
 				   <td>  <%=transaction.getTransaction_from_email()%>     </td>
 				   <td>  <%=transaction.getTransaction_to_email()%>       </td>
+				   <td>  <%=transaction.getPPS_price()%>       </td>
 							
 			</tr>
 

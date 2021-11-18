@@ -25,13 +25,13 @@ public class Transactions_DAO {
 	
 	
 	// ALL SQL QUERIRES
-	private static final String INSERT_TRANSCATIONS_SQL = "INSERT INTO transactions" + "  (transaction_name, transaction_date, transaction_time, dollar_amount, PPS_amount, transaction_from_email, transaction_to_email) VALUES "
-			+ " (?, ?, ?, ?, ?, ?, ?);";
+	private static final String INSERT_TRANSCATIONS_SQL = "INSERT INTO transactions" + "  (transaction_name, transaction_date, transaction_time, dollar_amount, PPS_amount, transaction_from_email, transaction_to_email, PPS_Price) VALUES "
+			+ " (?, ?, ?, ?, ?, ?, ?, ?);";
 	// Select all the deposits and withdraw transactions for a specific user
 	private static final String SELECT_ALL_DEPOSITS_AND_WITHDRAW = "select transaction_name, transaction_date, transaction_time, dollar_amount, PPS_amount from transactions where transaction_from_email = ? and transaction_from_email = transaction_to_email";
 	private static final String SELECT_ALL_TRANSACTIONS  = "select * from transactions;";
 	private static final String DELETE_ALL_TRANSACTIONS_SQL  = "delete * from transactions;";
-	private static final String SELECT_ALL_TRANSACTIONS_BY_USER_SQL = "select transaction_name, transaction_date, transaction_time, dollar_amount, PPS_amount, transaction_from_email, transaction_to_email from transactions where transaction_from_email = ?";
+	private static final String SELECT_ALL_TRANSACTIONS_BY_USER_SQL = "select transaction_name, transaction_date, transaction_time, dollar_amount, PPS_amount, transaction_from_email, transaction_to_email, PPS_Price from transactions where transaction_from_email = ? or transaction_to_email = ?";
 	
 
 	public Transactions_DAO() {
@@ -73,6 +73,7 @@ public class Transactions_DAO {
 		preparedStatement.setDouble(5, transaction.getPPS_amount());
 		preparedStatement.setString(6, transaction.getTransaction_from_email());
 		preparedStatement.setString(7, transaction.getTransaction_to_email());
+		preparedStatement.setDouble(8, transaction.getPPS_price());
 		System.out.println(preparedStatement);
 		
 		// Step 3: Execute the query or update query		
@@ -120,6 +121,7 @@ public class Transactions_DAO {
          
         preparedStatement = (PreparedStatement) connect.prepareStatement(SELECT_ALL_TRANSACTIONS_BY_USER_SQL);
         preparedStatement.setString(1, user_email);
+        preparedStatement.setString(2, user_email);
          
         ResultSet resultSet = preparedStatement.executeQuery();
          
@@ -131,9 +133,10 @@ public class Transactions_DAO {
             int PPS_amount = resultSet.getInt("PPS_amount");
             String from_email = resultSet.getString("transaction_from_email");
             String to_email = resultSet.getString("transaction_to_email");
+            double PPS_price = resultSet.getDouble("PPS_Price");
             
-            System.out.println("transaction_name: "+ transaction_name);
-            Transactions transaction = new Transactions(transaction_name,transaction_date,transaction_time,dollar_amount, PPS_amount, from_email, to_email);
+            System.out.println("transaction_name: " + transaction_name);
+            Transactions transaction = new Transactions(transaction_name,transaction_date,transaction_time,dollar_amount, PPS_amount, from_email, to_email, PPS_price);
             TransactionsList.add(transaction);
         }
          

@@ -236,7 +236,7 @@ public class User_Servlet extends HttpServlet {
 				String lname = request.getParameter("lname");
 				String address = request.getParameter("address");
 				String dob = request.getParameter("dob");
-				int PPS_balance = 0;
+				long PPS_balance = 0;
 				double dollar_balance = 0.0;
 				
 				User newUser = new User(email, password,  fname, lname, address, dob, PPS_balance, dollar_balance);
